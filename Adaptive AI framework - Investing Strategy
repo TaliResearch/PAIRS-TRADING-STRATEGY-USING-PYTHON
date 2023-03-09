@@ -53,10 +53,14 @@ new_returns = chosen_model.predict(new_X)
 print("Predicted returns for new investment opportunities:", new_returns)
 
 """
-We are using two regression models, LinearRegression and RandomForestRegressor,
-to predict investment returns based on historical investment data. We then compare the performance 
-of the two models using the coefficient of determination (r2_score), and choose the one with the 
-highest score to make predictions for new investment opportunities. Note that this is a very basic
-implementation and can be expanded and refined for use in more complex investment management to meet
-risk-return constraints and asset classes as required.
+We are using two regression models, LinearRegression and RandomForestRegressor, 
+to predict investment returns based on historical investment data. 
+
+We then compare the performance of the two models using the coefficient of determination (r2_score), 
+and choose the one with the highest score to make predictions for new investment opportunities. 
+
+Note that this is a very basic implementation that acts as a starting point for strategy 
+development in this area. It can be expanded and refined for use in more complex 
+investment management strategies to meet risk-return constraints and market characteristics as required.
+
 """
