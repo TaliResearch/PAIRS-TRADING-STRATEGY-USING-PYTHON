@@ -1,7 +1,7 @@
 """
-Creating an adaptive AI for investment management is a complex task that requires a deep understanding of both finance and machine learning. 
-However, here is a framework that can function effectively as the core starting point
-to create an adaptive AI algorithm trading strategy model for investment management, implemented using Python:
+Creating an adaptive AI for investment management is a task that elegantly, albeit somewhat complexly, 
+combines elements of finance and machine learning. However, here is a framework that can function effectively
+ as the core module starting point to create an adaptive AI algorithm trading strategy model for investment management, implemented using Python:
 """
 
 # Import necessary python libraries
