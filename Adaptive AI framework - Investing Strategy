@@ -42,11 +42,10 @@ if linear_reg_r2 > random_forest_r2:
 else:
     chosen_model = random_forest
 
-# Predict returns for new investment opportunities
-new_data = pd.read_csv('new_investment_data.csv')
-new_data.dropna(inplace=True)
-new_X = new_data.drop(['returns'], axis=1)
-new_returns = chosen_model.predict(new_X)
+
+^^^
+
+
 
 print("Predicted returns for new investment opportunities:", new_returns)
 
