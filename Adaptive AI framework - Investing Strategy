@@ -50,9 +50,6 @@ new_X = new_data.drop(['returns'], axis=1)
 new_returns = chosen_model.predict(new_X)
 
 
-
-
-
 print("Predicted returns for new investment opportunities:", new_returns)
 
 """
