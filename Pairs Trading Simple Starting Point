@@ -1,0 +1,58 @@
+# PAIRS TRADING STRATEGY USING PYTHON
+
+#This is a simple example, that can be used via modifications and customizations 
+to suit specific needs, such as choosing the appropriate entry and exit thresholds, 
+using different statistical tests, and considering transaction costs and other factors.
+
+import pandas as pd
+import numpy as np
+import statsmodels.api as sm
+
+# Step 1: Load historical data for the two stocks
+stock1_data = pd.read_csv('stock1.csv')  # Replace 'stock1.csv' with the file name/path for stock1 data
+stock2_data = pd.read_csv('stock2.csv')  # Replace 'stock2.csv' with the file name/path for stock2 data
+
+# Step 2: Preprocess the data
+stock1_data['Date'] = pd.to_datetime(stock1_data['Date'])  # Convert 'Date' column to datetime format
+stock2_data['Date'] = pd.to_datetime(stock2_data['Date'])  # Convert 'Date' column to datetime format
+
+# Merge the two datasets based on the common 'Date' column
+merged_data = pd.merge(stock1_data, stock2_data, on='Date')
+
+# Step 3: Calculate the spread between the two stocks
+spread = merged_data['Price_x'] - merged_data['Price_y']
+
+# Step 4: Calculate the z-score of the spread
+zscore = (spread - np.mean(spread)) / np.std(spread)
+
+# Step 5: Define the entry and exit thresholds for trading signals
+entry_threshold = 2.0
+exit_threshold = 0.5
+
+# Step 6: Implement the trading strategy
+positions = []  # List to store trading positions
+for i in range(len(merged_data)):
+    if zscore[i] > entry_threshold:  # If z-score exceeds the entry threshold, go short stock1 and long stock2
+        positions.append([-1, 1])
+    elif zscore[i] < -entry_threshold:  # If z-score falls below the negative entry threshold, go long stock1 and short stock2
+        positions.append([1, -1])
+    elif abs(zscore[i]) < exit_threshold:  # If z-score falls within the exit threshold, close any open positions
+        positions.append([0, 0])
+    else:
+        positions.append(positions[-1])  # Maintain the previous position
+
+# Step 7: Backtest the strategy
+returns_stock1 = merged_data['Price_x'].pct_change()  # Calculate returns for stock1
+returns_stock2 = merged_data['Price_y'].pct_change()  # Calculate returns for stock2
+portfolio_returns = np.sum(np.array(positions) * np.array([returns_stock1, returns_stock2]), axis=0)
+
+# Step 8: Evaluate the performance
+cumulative_returns = np.cumsum(portfolio_returns)
+annualized_returns = np.mean(portfolio_returns) * 252
+annualized_volatility = np.std(portfolio_returns) * np.sqrt(252)
+sharpe_ratio = annualized_returns / annualized_volatility
+
+# Step 9: Print the performance metrics
+print("Annualized Returns: {:.2%}".format(annualized_returns))
+print("Annualized Volatility: {:.2%}".format(annualized_volatility))
+print("Sharpe Ratio: {:.2f}".format(sharpe_ratio))
