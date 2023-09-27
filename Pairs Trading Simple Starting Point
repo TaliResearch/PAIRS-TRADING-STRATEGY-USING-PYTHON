@@ -6,12 +6,15 @@ using different statistical tests, and considering transaction costs and other f
 (comments included to explaining each section of code)
 
 
-# Step 2: Preprocess the data
-stock1_data['Date'] = pd.to_datetime(stock1_data['Date'])  # Convert 'Date' column to datetime format
-stock2_data['Date'] = pd.to_datetime(stock2_data['Date'])  # Convert 'Date' column to datetime format
+import pandas as pd
+import numpy as np
+import statsmodels.api as sm
 
-# Merge the two datasets based on the common 'Date' column
-merged_data = pd.merge(stock1_data, stock2_data, on='Date')
+# Step 1: Load historical data for the two stocks
+stock1_data = pd.read_csv('stock1.csv')  # Replace 'stock1.csv' with the file name/path for stock1 data
+stock2_data = pd.read_csv('stock2.csv')  # Replace 'stock2.csv' with the file name/path for stock2 data
+
+
 
 # Step 3: Calculate the spread between the two stocks
 spread = merged_data['Price_x'] - merged_data['Price_y']
