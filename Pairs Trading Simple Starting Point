@@ -28,6 +28,10 @@ spread = merged_data['Price_x'] - merged_data['Price_y']
 # Step 4: Calculate the z-score of the spread
 zscore = (spread - np.mean(spread)) / np.std(spread)
 
+# Step 5: Define the entry and exit thresholds for trading signals
+entry_threshold = 2.0
+exit_threshold = 0.5
+
 
 # Step 6: Implement the trading strategy
 positions = []  # List to store trading positions
