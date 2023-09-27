@@ -22,11 +22,12 @@ stock2_data['Date'] = pd.to_datetime(stock2_data['Date'])  # Convert 'Date' colu
 # Merge the two datasets based on the common 'Date' column
 merged_data = pd.merge(stock1_data, stock2_data, on='Date')
 
+# Step 3: Calculate the spread between the two stocks
+spread = merged_data['Price_x'] - merged_data['Price_y']
 
 
 
-# Step 4: Calculate the z-score of the spread
-zscore = (spread - np.mean(spread)) / np.std(spread)
+
 
 # Step 5: Define the entry and exit thresholds for trading signals
 entry_threshold = 2.0
